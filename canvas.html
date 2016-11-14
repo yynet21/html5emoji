@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Canvasの練習</title>
+    <style>
+/*    #canvas { width: 1280px; height: 800px; margin:auto; }*/
+
+    div{
+/* position: relative;*/
+}
+#ruler{
+  visibility: hidden;
+}
+#visualizer {
+      border: 1px solid #aaa;
+  display: block;
+  background: #fff;
+  width :1280px;
+  height :800px;
+left: 0;
+right: 0;
+  position: absolute;
+  margin: auto;
+  filter: blur(5px);
+-webkit-filter: blur(5px);
+}
+#container{
+/*  width:100%;
+	margin:  auto;*/
+	position: relative;
+   /*これのおかげで参照される？*/
+}
+
+body{
+	height: 100%;
+	margin: auto;
+	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+	font-size: 14px;
+}
+    </style>
+</head>
+<body>
+  <div id="container">
+<canvas id ="visualizer"></canvas>
+</div>
+<button type="button" id="saveimg">画像保存</button>
+<p id ="ruler"></p>
+</div>
+
+    <!--<div id="canvas"><canvas id="visualizer"></canvas>
+</div>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script src="js/perlin.js"></script>
+    <script src="js/mathtool.js"></script>
+
+    <script src="js/CirclePP.js"></script>
+    <script src="js/FractalRoot3.js"></script>
+
+    <script src="js/HexagonF.js"></script>
+
+    <script src="js/StringtoImage.js"></script>
+
+    <script src="js/stats.min.js"></script>
+    <script src="js/getElapsed.js"></script>
+    <script src="js/Point2D.js"></script>
+    <script src="js/saveimg.js"></script>
+    <script src="js/canvas01.js"></script>
+</body>
+</html>

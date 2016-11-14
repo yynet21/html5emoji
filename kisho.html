@@ -1,0 +1,176 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Threejsの練習</title>
+    <style>
+#visualizer {
+      border: 1px solid #aaa;
+  display: block;
+  background: #fff;
+  width :1280px;
+  height :800px;
+left: 0;
+right: 0;
+  position: absolute;
+  margin: auto;
+}
+#container{
+	position: relative;
+}
+#par{
+
+  margin: auto;
+}
+body{
+	height: 100%;
+	margin: auto;
+	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+	font-size: 14px;
+}
+    </style>
+</head>
+<body>
+  <div id="container">
+  <div id="par">
+	<label for="play-rate">気圧傾度力</label>
+	<input id="p1" type="range" value="10" min ="1" max ="40" step="1" >
+	<label for="play-rate">摩擦力</label>
+	<input id="f1" type="range" value="3" min ="0" max ="32" step="1" >
+<canvas id ="visualizer"></canvas>
+</div>
+
+</div>
+
+    <!--<div id="canvas"><canvas id="visualizer"></canvas>
+</div>-->
+<script>
+
+function sin(t){
+  return Math.sin(t*Math.PI*2);
+}
+
+function cos(t){
+  return Math.cos(t*Math.PI*2);
+}
+
+var canvas = document.getElementById('visualizer');
+var ctx = canvas.getContext('2d');
+canvas.width =800;
+canvas.height=600;
+ObjectP=[];
+var a=0.4;
+init();
+animate();
+
+function Arrow(arg){
+  this.name=arg.name;
+  this.color=arg.color;
+  this.vec=arg.vec;
+  this.pos=arg.pos||[400,300];
+  this.ang=arg.ang;
+  this.draw=function(){
+  ctx.font='normal normal 40px san-serif';
+  ctx.textAling='left';
+  ctx.textBaseline='top';
+ /* ctx.translate(canvas.width/2,canvas.height/2);  */
+  ctx.strokeStyle=this.color;
+  ctx.beginPath();
+  ctx.moveTo(this.pos[0], this.pos[1]);
+  ctx.lineTo(this.pos[0]+this.vec*cos(this.ang), this.pos[1]+this.vec*sin(this.ang));
+  ctx.stroke();
+  ctx.fillText(this.name,this.pos[0]+(100+this.vec)*cos(this.ang), this.pos[1]+(100+this.vec)*sin(this.ang));  
+};
+  this.update=function(){
+  if (this.name==="気圧傾度力"){this.vec=document.getElementById('p1').value*10;}
+  if (this.name==="摩擦力"){
+    this.vec=document.getElementById('f1').value*10;
+    a=Math.asin(ObjectP[1].vec/ObjectP[0].vec)/(Math.PI*2);
+    this.ang=-a+0.5;
+//    console.log(a,ObjectP[1].vec,ObjectP[0].vec);
+  }
+  if (this.name==="コリオリ力"){
+    this.vec=document.getElementById('p1').value*10*cos(a);
+    this.ang=-a+0.25;
+
+  ctx.strokeStyle="#000000";
+    ctx.save();
+    console.log(this.pos[0]);
+  ctx.moveTo(this.pos[0], this.pos[1]);
+  ctx.lineTo(this.pos[0]+200, this.pos[1]);
+  ctx.stroke();
+;
+  ctx.beginPath();
+  ctx.setLineDash([5,10]); 
+  ctx.moveTo(this.pos[0], this.pos[1]);
+  ctx.lineTo(this.pos[0]+cos(-a)*200, this.pos[1]+sin(-a)*200);
+  ctx.stroke();
+  ctx.restore(); 
+  ctx.beginPath();
+  ctx.arc(this.pos[0], this.pos[1],50,0,(1-a)*2*Math.PI,true);
+  ctx.stroke();
+  ctx.textBaseline='bottom';
+  ctx.font='normal normal 30px san-serif';
+  
+  ctx.fillText("a",this.pos[0]+60,this.pos[1]);
+  ctx.font='normal normal 40px san-serif';
+  
+  var tmp='風速'+(Math.sqrt(ObjectP[0].vec*ObjectP[0].vec-ObjectP[1].vec*ObjectP[1].vec)/f).toFixed(2) ;
+  ctx.fillText(tmp, 100, 200);  
+  var alpha='向き　 a='+((Math.asin(ObjectP[1].vec/ObjectP[0].vec))/2/Math.PI*360).toFixed(2)+"°";
+  ctx.fillText(alpha, 100, 240);  
+ 
+  }
+  
+  this.draw();};
+}
+ 
+function init(){
+  var arg={
+			'name':"気圧傾度力",
+			'color':"#ff0000",    
+			'vec':document.getElementById('p1').value*10,
+			'ang':0.75
+      
+		};
+    
+  ObjectP.push(new Arrow(arg));
+  var arg={
+			'name':"摩擦力",
+			'color':"#00ff00",
+			'vec':document.getElementById('f1').value*10,
+      'ang':a+0.25
+		};
+    
+  ObjectP.push(new Arrow(arg));
+  var arg={
+			'name':"コリオリ力",
+			'color':"#0000ff",
+			'vec':100,
+      'ang':a
+		};
+    
+  ObjectP.push(new Arrow(arg));
+  console.log(ObjectP);
+}
+var f=4;
+ctx.lineWidth=5;
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  frameCount = requestAnimationFrame(animate);//描画開始から何フレーム目か分かる。
+  for (var i=0;i<ObjectP.length;i++){
+    ObjectP[i].update();
+
+  } // console.log(ObjectP[0].vec);
+}
+
+
+    //$('#sides').val()|0
+
+
+
+</script>
+    
+</body>
+</html>

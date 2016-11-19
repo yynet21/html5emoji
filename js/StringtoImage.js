@@ -8,7 +8,7 @@ function StringtoImage(str,size){
   //this.fontStyle = this.fontsize + 'px Century Gothic,"Hiragino Kaku Gothic ProN"';
   this.fontStyle = this.fontsize + 'px sans-serif';
   StrCanvas.width = this.fontsize*this.str.length;
-  StrCanvas.height = this.strHeight(this.str,this.fontsize,"sans-serif");
+  StrCanvas.height = this.fontsize*1.5;//this.strHeight(this.str,this.fontsize,"sans-serif");
   StrCtx.font = this.fontStyle;
   StrCtx.textBaseline = "top";
 
@@ -44,20 +44,37 @@ function StringtoImage(str,size){
 }
 
 StringtoImage.prototype.getrandom =function (num){
-  var ans=[];
-  //var tmpx=random(200);
-  //var tmpy=random(100);
+  /*
+    var ans=[];
+  var tmpx=random(200);
+  var tmpy=random(100);
 
   for (var i=0;i<num;i++){
     //  var tmp=(Math.random()*this.num.length)|0;
     //var tmp=((i*(114547+Math.random()))%this.num.length)|0;
     var tmp=((random(1)+37*i/num*this.num.length)|0)%this.num.length;
       //console.log(this.table,this.number,tmp,this.number.length,this.number[0]);// 45 20
-      var x=this.num[tmp].x+0.5-Math.random();
-      var y=this.num[tmp].y+0.5-Math.random();
+    //  console.log(tmp);
+      var x=(this.num[tmp].x+0.5-Math.random())*2+tmpx;
+      var y=(this.num[tmp].y+0.5-Math.random())*2+tmpy;
+
       ans[i]={x:x,y:y,color:this.color[tmp]};
   }
-	return ans;
+	return ans;*/
+  var ans=[];
+var tmpx=random(200);
+var tmpy=random(100);
+
+for (var i=0;i<num;i++){
+  //  var tmp=(Math.random()*this.num.length)|0;
+  //var tmp=((i*(114547+Math.random()))%this.num.length)|0;
+  var tmp=((random(1)+37*i/num*this.num.length)|0)%this.num.length;
+    //console.log(this.table,this.number,tmp,this.number.length,this.number[0]);// 45 20
+    var x=(this.num[tmp].x+0.5-Math.random())*2+tmpx;
+    var y=(this.num[tmp].y+0.5-Math.random())*2+tmpy;
+    ans[i]={x:x,y:y,color:this.color[tmp]};
+}
+  return ans;
 }
 
 StringtoImage.prototype.strHeight =function (str,size,fa) {

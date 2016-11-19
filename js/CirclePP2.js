@@ -1,12 +1,12 @@
 function CirclePP(cl,ct,dr){
   //this.ctx=ctx;
   this.clock=cl;
-  this.height=ct[0];
-  this.width=ct[1];
+  this.height=ct[1];
+  this.width=ct[0];
   this.dr=dr[0];
   this.ini=dr[1];
 
-  this.amount=6000;
+  this.amount=1000;
   this.size= 4;
   this.Wall={x:this.width-2*this.size,y:this.height-2*this.size};
   this.offset={x:this.size,y:this.size};
@@ -42,23 +42,24 @@ CirclePP.prototype.clear=function(){
 }
 CirclePP.prototype.update=function(){
   /*今回は同時に描画も行う*/
+  //console.log(this.flag);
   this.calcpos();
   for (var i=0;i<this.amount;i++){
-    this.dr([this.ex[i],this.hue[i],this.pos[i],this.size]);
+    this.dr([this.ex[i],this.hue[i],this.pos[i],this.size,i]);
   }
   if (this.flag &&this.clock()>=this.begin+this.duration){this.pushlist();}//場所を入れ替える
 }
 
 CirclePP.prototype.setlist=function(list,timeL){
   /*あくまでもイベントをセットする！！*/
-  if (!this.flag){this.begin=0,this.duration=timeL[0];}
+  if (!this.flag){this.begin=this.clock(),this.duration=timeL[0];}
   for (var i=list.length-1;i>=0;i--){
     this.list.unshift(list[i]);
     this.timeL.unshift(timeL[i]);
   }
 
   if (this.flag)this.id+=list.length;//
-  //if (!this.flag)this.setdestination();
+  if (!this.flag)this.setdestination();
   this.flag=true;
 }
 CirclePP.prototype.pushlist=function(){
@@ -70,6 +71,7 @@ CirclePP.prototype.pushlist=function(){
   this.timeL.push(tmpt[0]);
   this.duration=this.timeL[0];
   this.setdestination();
+//  console.log("fgh");
 }
 CirclePP.prototype.setdestination=function(){
   for (var i=0;i<this.amount;i++){
@@ -81,14 +83,15 @@ CirclePP.prototype.setdestination=function(){
     this.to[i].x+=this.Wall.x*2*Math.ceil(f.x/2);
     this.to[i].y+=this.Wall.y*2*Math.ceil(f.y/2);
     this.hue[i]="rgba("+this.list[c][i].color[0]+","+this.list[c][i].color[1]+","+this.list[c][i].color[2]+","+this.list[c][i].color[3]/256+")";
+    //this.hue[i]=
   }
 }
 
 CirclePP.prototype.calcpos=function(){
   for (var i=0;i<this.amount;i++){
     if (this.flag){
-        this.pos[i].p.x=step2(this.from[i].x,this.to[i].x,this.duration,this.clock()-this.begin,2.4);
-        this.pos[i].p.y=step2(this.from[i].y,this.to[i].y,this.duration,this.clock()-this.begin,2.1);
+        this.pos[i].p.x=step2(this.from[i].x,this.to[i].x,this.duration,this.clock()-this.begin,2.1);
+        this.pos[i].p.y=step2(this.from[i].y,this.to[i].y,this.duration,this.clock()-this.begin,2.4);
         this.pos[i].p.x-=this.offset.x;
         this.pos[i].p.y-=this.offset.y;
         var tmp=[0,0];

@@ -6,7 +6,7 @@ window.requestAnimationFrame =
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame ||
   function(cb) {setTimeout(cb, 17);};
-var ObjectP={lyrics:[],music:new MusicPlayP(["pauseB","resetB"],["  再　生　","一時停止","Loading"]),image:[],video:[],object:[],time:[],pixi:[]};
+var ObjectP={str:[],lyrics:[],music:new MusicPlayP(["pauseB","resetB"],["  再　生　","一時停止","Loading"]),image:[],video:[],object:[],time:[],pixi:[]};
 ObjectP.pixi.obj=[];
 init();
 //animate();
@@ -36,7 +36,7 @@ InputFiles("files",function() {
     }
   }
 );
-var res=getCSV("data/sample.csv");
+//var res=getCSV("data/sample.csv");
 //console.log(res);
 
     /*kokokara pixi js*/
@@ -156,7 +156,7 @@ var res=getCSV("data/sample.csv");
   }
 }
 // アニメーション関数を定義する
-
+var flags=true;
     requestAnimationFrame(animate);
 function animate(){
     requestAnimationFrame(animate); // 次の描画タイミングでanimateを呼び出す
@@ -168,8 +168,51 @@ function animate(){
 
 
   if (ObjectP.music.s())ObjectP.music.render();
-  if (ObjectP.music.s())ObjectP.pixi.obj.forEach(function (e){e.update();});
+  if (!ObjectP.music.s())ObjectP.pixi.obj.forEach(function (e){e.update();});
   if (ObjectP.lyrics[0]&&ObjectP.music.s())ObjectP.pixi.draw();
  ObjectP.pixi.renderer.render(ObjectP.pixi.stage);
- //console.log(ObjectP.music.analyser);
+ if (ObjectP.time[0]()>2&&flags){
+   flags=false;
+   asd();
+ }
+
+}
+//var nyaho;
+function asd(){
+  var emo=["💯","🍎","🍍","💢","💉","🍀","❄️"];
+//  var emo=["💯","❄️"];
+
+  //"☯"
+  for (var i=0;i<emo.length;i++){
+  ObjectP.str.push(new StringtoImage(emo[i],200));
+  //console.log(emo[i]);
+  }
+  //ObjectP.str.push(new StringtoImage("✒︎🍍🍎✒︎",100));
+
+  ObjectP.pixi.obj.push(new CirclePP(ObjectP.time[0],[ObjectP.pixi.width,ObjectP.pixi.height],[function (a){
+    //console.log(a[0]);
+    a[0].clear();
+    a[0].beginFill(a[1],1).drawCircle(a[2].p.x,a[2].p.y,a[3]).endFill();
+    //a[0].position.x =nyaho[a[4]].x;
+    //a[0].position.y =nyaho[a[4]].y;
+  //  console.log(nyaho[a[4]].x);
+},function(a){
+  //console.log(a);
+  //var tmp=new PIXI.Graphics().beginFill(a[1],1).drawCircle(a[2].p.x,a[2].p.y,a[3]).endFill();
+  var tmp=new PIXI.Graphics();
+    a[0].push(tmp);
+    ObjectP.pixi.stage.addChild(tmp);
+  }]) );
+ //console.log(ObjectP.pixi.obj.length,ObjectP.str.length,nyaho);
+
+  var tmp =ObjectP.pixi.obj[ObjectP.pixi.obj.length-1];
+  tmp.srandom(false);
+  for (var i=0;i<ObjectP.str.length;i++){
+    var to=[];
+    console.log(i,ObjectP.str[i]);
+    to=ObjectP.str[i].getrandom(tmp.amount);
+  //  nyaho=ObjectP.str[i].getrandom(tmp.amount);
+    tmp.setlist([to],[3]);
+  }
+//console.log(nyaho);
 }

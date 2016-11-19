@@ -36,7 +36,7 @@ InputFiles("files",function() {
     }
   }
 );
-var res=getCSV("sample.csv");
+var res=getCSV("data/sample.csv");
 console.log(res);
 
     /*kokokara pixi js*/

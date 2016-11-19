@@ -57,7 +57,11 @@ function step2(a,b,time,now,c,d){
   else if (c==4)return (1-(1-s)*(1-s)*(1-s))*x+a;
   else if (c===10){
     s *= 2;if (s < 1) return a+x/2*s*s;
-    else{s--;return a-x/2*(s*(s-2)-1)};
+    else{s--;return a-x/2*(s*(s-2)-1)};//0-1  -1 -2
+  }
+  else if (c===11){
+    s *= 2;if (s < 1) return a+x/2*(1-(1-s)*(1-s));
+    else{s--;return a+x/2+x/2*s*s};
   }
   else {return s*(b-a)+a;}
 }

@@ -114,6 +114,7 @@ MusicPlayP.prototype.click=function(){
 }
 MusicPlayP.prototype.play=function(){
  this.init();
+ if (ObjectP.video.v){ObjectP.video.v.currentTime=this.time();ObjectP.video.v.play();}
  this.source.start(0);
  this.time("r");
 // ObjectP.lyrics.forEach(function(e){e.init();});
@@ -122,8 +123,10 @@ MusicPlayP.prototype.play=function(){
 }
 MusicPlayP.prototype.pause=function(){
  this.time("p");
- this.source.stop(0);
+ if (ObjectP.video.v){ObjectP.video.v.pause();}
+this.source.stop(0);
  this.statusid=2;//1->2
+
 }
 
 MusicPlayP.prototype.replay=function(){
@@ -134,6 +137,7 @@ MusicPlayP.prototype.replay=function(){
  this.source.start(0,this.time());
  //ObjectP.object.forEach(function(e){e.update(tmp);});
  this.statusid=1;//2->1
+ if (ObjectP.video.v){ObjectP.video.v.currentTime=this.time();ObjectP.video.v.play();}
 }
 
 MusicPlayP.prototype.reset=function(){
@@ -144,4 +148,5 @@ MusicPlayP.prototype.reset=function(){
  this.source.stop(0);
  this.statusid=0;//2->0 or1->0
   this.text();
+   if (ObjectP.video.v){ObjectP.video.v.currentTime = 0; ObjectP.video.v.pause();}
 }

@@ -1,13 +1,13 @@
-function CirclePP(cl,ct,dr){
+function CirclePP(cl,ct,dr,si,am){
   //this.ctx=ctx;
   this.clock=cl;
   this.height=ct[1];
   this.width=ct[0];
   this.dr=dr[0];
   this.ini=dr[1];
+  this.size= si||10;
+  this.amount=am||100;
 
-  this.amount=500;
-  this.size= 20;
   this.Wall={x:this.width-2*this.size,y:this.height-2*this.size};
   this.offset={x:this.size,y:this.size};
   this.flag=false;
@@ -90,8 +90,8 @@ CirclePP.prototype.setdestination=function(){
 CirclePP.prototype.calcpos=function(){
   for (var i=0;i<this.amount;i++){
     if (this.flag){
-        this.pos[i].p.x=step2(this.from[i].x,this.to[i].x,this.duration,this.clock()-this.begin,2.1);
-        this.pos[i].p.y=step2(this.from[i].y,this.to[i].y,this.duration,this.clock()-this.begin,2.4);
+        this.pos[i].p.x=step2(this.from[i].x,this.to[i].x,this.duration,this.clock()-this.begin,1.1);
+        this.pos[i].p.y=step2(this.from[i].y,this.to[i].y,this.duration,this.clock()-this.begin,1.2);
         this.pos[i].p.x-=this.offset.x;
         this.pos[i].p.y-=this.offset.y;
         var tmp=[0,0];

@@ -6,8 +6,8 @@ function CirclePP(cl,ct,dr){
   this.dr=dr[0];
   this.ini=dr[1];
 
-  this.amount=1000;
-  this.size= 4;
+  this.amount=500;
+  this.size= 20;
   this.Wall={x:this.width-2*this.size,y:this.height-2*this.size};
   this.offset={x:this.size,y:this.size};
   this.flag=false;
@@ -83,7 +83,7 @@ CirclePP.prototype.setdestination=function(){
     this.to[i].x+=this.Wall.x*2*Math.ceil(f.x/2);
     this.to[i].y+=this.Wall.y*2*Math.ceil(f.y/2);
     this.hue[i]="rgba("+this.list[c][i].color[0]+","+this.list[c][i].color[1]+","+this.list[c][i].color[2]+","+this.list[c][i].color[3]/256+")";
-    //this.hue[i]=
+    this.hue[i]="0x"+("00"+this.list[c][i].color[0].toString(16)).slice(-2)+("00"+this.list[c][i].color[1].toString(16)).slice(-2)+("00"+this.list[c][i].color[2].toString(16)).slice(-2);
   }
 }
 

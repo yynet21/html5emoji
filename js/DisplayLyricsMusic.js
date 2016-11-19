@@ -23,10 +23,10 @@ InputFiles("files",function() {
       }
       reader.readAsArrayBuffer(this);
     }
-    else if(this.type.match('video.*')){
+//    else if(this.type.match('video.*')){
 
-    }
-    else if(this.type.match('audio.*')){
+  //  }
+    else if(this.type.match('audio.*')||this.type.match('video.*')){
       var reader=new FileReader();
       reader.onload = function(e){
         ObjectP.music.add(e.target.result);
@@ -168,7 +168,7 @@ function animate(){
 
 
   if (ObjectP.music.s())ObjectP.music.render();
-  if (!ObjectP.music.s())ObjectP.pixi.obj.forEach(function (e){e.update();});
+  if (ObjectP.music.s())ObjectP.pixi.obj.forEach(function (e){e.update();});
   if (ObjectP.lyrics[0]&&ObjectP.music.s())ObjectP.pixi.draw();
  ObjectP.pixi.renderer.render(ObjectP.pixi.stage);
  if (ObjectP.time[0]()>2&&flags){
@@ -193,12 +193,14 @@ function asd(){
     //console.log(a[0]);
     a[0].clear();
     a[0].beginFill(a[1],1).drawCircle(a[2].p.x,a[2].p.y,a[3]).endFill();
-    //a[0].position.x =nyaho[a[4]].x;
-    //a[0].position.y =nyaho[a[4]].y;
-  //  console.log(nyaho[a[4]].x);
+  //  a[0].fillColor=123456;
+  //  a[0].beginFill="0x00ff00";
+  //  a[0].position.x =a[2].p.x;
+    //a[0].position.y =a[2].p.y;
+   console.log(a[0]);
 },function(a){
   //console.log(a);
-  //var tmp=new PIXI.Graphics().beginFill(a[1],1).drawCircle(a[2].p.x,a[2].p.y,a[3]).endFill();
+  //var tmp=new PIXI.Graphics().beginFill("0xff0000",1).drawCircle(0,0,a[3]).endFill();
   var tmp=new PIXI.Graphics();
     a[0].push(tmp);
     ObjectP.pixi.stage.addChild(tmp);
@@ -209,7 +211,7 @@ function asd(){
   tmp.srandom(false);
   for (var i=0;i<ObjectP.str.length;i++){
     var to=[];
-    console.log(i,ObjectP.str[i]);
+  //  console.log(i,ObjectP.str[i]);
     to=ObjectP.str[i].getrandom(tmp.amount);
   //  nyaho=ObjectP.str[i].getrandom(tmp.amount);
     tmp.setlist([to],[3]);

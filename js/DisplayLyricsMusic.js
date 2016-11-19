@@ -6,7 +6,7 @@ window.requestAnimationFrame =
   window.webkitRequestAnimationFrame ||
   window.msRequestAnimationFrame ||
   function(cb) {setTimeout(cb, 17);};
-var ObjectP={lyrics:[],music:new MusicPlayP(["pauseB","resetB"],["  再　生　","一時停止"]),image:[],video:[],object:[],time:[],pixi:[]};
+var ObjectP={lyrics:[],music:new MusicPlayP(["pauseB","resetB"],["  再　生　","一時停止","Loading"]),image:[],video:[],object:[],time:[],pixi:[]};
 ObjectP.pixi.obj=[];
 init();
 //animate();
@@ -37,7 +37,7 @@ InputFiles("files",function() {
   }
 );
 var res=getCSV("data/sample.csv");
-console.log(res);
+//console.log(res);
 
     /*kokokara pixi js*/
     ObjectP.pixi.width = 1280;

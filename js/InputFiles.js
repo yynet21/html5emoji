@@ -5,3 +5,9 @@ function InputFiles(id,fn){
     }
   }, false);
 }
+
+function ClickChange(id,fn){
+  document.getElementById(id).addEventListener('click',function (e){
+      fn.call(e);
+  }, false);
+}

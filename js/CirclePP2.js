@@ -1,4 +1,4 @@
-function CirclePP(cl,ct,dr,si,am){
+function CirclePP(cl,ct,dr,si,am,ll){
   //this.ctx=ctx;
   this.clock=cl;
   this.height=ct[1];
@@ -12,7 +12,7 @@ function CirclePP(cl,ct,dr,si,am){
   this.offset={x:this.size,y:this.size};
   this.flag=false;
   this.hue =[];this.pos =[];
-  this.setrandom=true;
+  this.setrandom=false;
   this.list=[];this.timeL=[];
   this.from=[];this.to=[];
   this.id=0;
@@ -35,6 +35,7 @@ function CirclePP(cl,ct,dr,si,am){
           this.ini([this.ex,this.hue[i],this.pos[i],this.size]);
       }
     }
+    if (ll){this.setlist(ll[0],ll[1]);}
 }
 CirclePP.prototype.srandom=function(f){this.setrandom=f;}
 CirclePP.prototype.clear=function(){

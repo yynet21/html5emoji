@@ -40,38 +40,27 @@ function StringtoImage(str,size){
       if (list[3]>128){this.num.push({x:j,y:i});this.color.push(list);}
 		 }
 	 }
+   this.height=StrCanvas.height;
 //  console.log(this.num[0],this.color[0]);
 }
 
-StringtoImage.prototype.getrandom =function (num){
-  /*
-    var ans=[];
-  var tmpx=random(200);
-  var tmpy=random(100);
+StringtoImage.prototype.getrandom =function (num,size){
 
-  for (var i=0;i<num;i++){
-    //  var tmp=(Math.random()*this.num.length)|0;
-    //var tmp=((i*(114547+Math.random()))%this.num.length)|0;
-    var tmp=((random(1)+37*i/num*this.num.length)|0)%this.num.length;
-      //console.log(this.table,this.number,tmp,this.number.length,this.number[0]);// 45 20
-    //  console.log(tmp);
-      var x=(this.num[tmp].x+0.5-Math.random())*2+tmpx;
-      var y=(this.num[tmp].y+0.5-Math.random())*2+tmpy;
-
-      ans[i]={x:x,y:y,color:this.color[tmp]};
-  }
-	return ans;*/
   var ans=[];
-var tmpx=random(200);
-var tmpy=random(100);
+  var offset={x:random(200),y:random(100)},scale=1;
+  if (typeof size !=="undefined"){
+    scale=Math.min(size[0]/this.width,size[1]/this.height);
+    offset.x=(size[0]-scale*this.width)/2;
+    offset.y=(size[1]-scale*this.height)/2;
+  }
 
 for (var i=0;i<num;i++){
   //  var tmp=(Math.random()*this.num.length)|0;
   //var tmp=((i*(114547+Math.random()))%this.num.length)|0;
   var tmp=((random(1)+37*i/num*this.num.length)|0)%this.num.length;
     //console.log(this.table,this.number,tmp,this.number.length,this.number[0]);// 45 20
-    var x=(this.num[tmp].x+0.5-Math.random())*2+tmpx;
-    var y=(this.num[tmp].y+0.5-Math.random())*2+tmpy;
+    var x=(this.num[tmp].x+0.5-Math.random())*scale+offset.x;
+    var y=(this.num[tmp].y+0.5-Math.random())*scale+offset.y;
     ans[i]={x:x,y:y,color:this.color[tmp]};
 }
   return ans;

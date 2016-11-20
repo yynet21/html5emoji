@@ -34,13 +34,15 @@ body{
     <button onclick="abortRead();">Cancel read</button>
     <button id ="pauseB" type="button" >　再 生　</button>
     <button id ="resetB" type="button" >リセット</button><button type="button" id="saveimg">画像保存</button>
-    <div id="pixiview"></div>
+    <button type="button" id="bpmM">BPM計測</button>
+    <div id="pixiview"><canvas id="visualizer"  width="1280" height="800"></canvas> </div>
 </div>
 <p id ="ruler"></p>
 </div>
     <script src="js/pixi.min.js"></script>
     <script src="js/perlin.js"></script>
     <script src="js/mathtool.js"></script>
+    <script src="js/saveimg.js"></script>
 
     <script src="js/StringtoImage.js"></script>
 
@@ -50,7 +52,9 @@ body{
     <script src="js/Point2D.js"></script>
 
     <script src="js/CirclePP2.js"></script>
+    <script src="js/FractalRoot4.js"></script>
     <script src="js/Analyzer.js"></script>
+    <script src="js/TimeLineM.js"></script>
     <script src="js/InputFiles.js"></script>
     <script src="js/encoding.js"></script>
     <script src="js/MusicPlayP2.js"></script>

@@ -217,83 +217,7 @@ main.draw=[
   main.ctx.fillRect(0,0,main.width,main.height);
 }},
 
-new Illmination({visible:true,cons:function (){
-  this.W=main.canvas[1].width/2;
-  this.H=main.canvas[1].height/2;
-  this.size=90;
-  this.obj=[];
-//  this.background=new PIXI.Graphics().beginFill(0xFF0000,1).drawRect(0,0,this.W*2,this.H*2).endFill();
-  for (let i=0;i<this.W*2;i+=this.size){
-    let tmp=new PIXI.Graphics().lineStyle(2,0xFFFFFF).moveTo(0,0).lineTo(0,this.H*2);
-    tmp.position.x=i;
-    this.obj.push({main:tmp,x:i});
-  }
-  for (let i=0;i<this.H*2;i+=this.size){
-    let tmp=new PIXI.Graphics().lineStyle(2,0xFFFFFF).moveTo(0,0).lineTo(this.W*2,0);
-    tmp.position.y=i;
-    this.obj.push({main:tmp,y:i});
-  }
 
-},init:function(){
-//  main.stage.addChild(this.background);
-  for (let i=0;i<this.obj.length;i++){
-    main.stage.addChild(this.obj[i].main);
-  }
-}
-,draw:function (){
-//  if (main.frameCount%4!==0)return;
-  for (let i=0;i<this.obj.length;i++){
-    if (typeof this.obj[i].x!=="undefined")this.obj[i].main.position.x = this.obj[i].x+(main.frameCount*0.1)%this.size;
-    if (typeof this.obj[i].y!=="undefined")this.obj[i].main.position.y = this.obj[i].y+(main.time[0]())%this.size;
-    //console.log(this.obj[i].main.position);
-  }
-} }),
-
-
-new Illmination({visible:true,cons:function (){
-  let  lightimage = PIXI.Texture.fromImage("img/circle0.png");
-  this.W=main.canvas[1].width/2;
-  this.H=main.canvas[1].height/2;
-  this.size=60;
-  this.obj=[];
-  this.v={x:0,y:105};
-  this.space={x:200,y:90};
-  this.amount={x:Math.ceil(this.W*2/this.space.x),y:Math.ceil(this.H*2/this.space.y)};
-  for (let i=0;i<=this.amount.x;i++){
-    for (let j=0;j<=this.amount.y;j++){
-    //  let col=`rgb(${(random(2)|0)*256},${(random(2)|0)*256},${(random(2)|0)*256})`;
-    //  let col=(random(2)|0)*0xFF0000+(random(2)|0)*0x00FF00+(random(2)|0)*0x0000FF;
-    //let col=0xFFFFF;
-    let col=0xc8db4a;
-      let tmp=new PIXI.Sprite(lightimage);
-      tmp.tint =col;
-      tmp.scale.x=random(0.5,3);
-      tmp.scale.y=tmp.scale.x;
-      //tmp.position.x=i*this.space.x;
-      //tmp.position.y=j*this.space.y;
-      tmp.blendMode = PIXI.BLEND_MODES.ADD;
-      tmp.position.x=random(this.W*2);
-      tmp.position.y=random(this.H*2);
-
-      this.obj.push({main:tmp,x:tmp.position.x,y:tmp.position.y,offset:Math.random()});
-    }
-  }
-
-},init:function(){
-//  main.stage.addChild(this.background);
-  for (let i=0;i<this.obj.length;i++){
-    main.stage.addChild(this.obj[i].main);
-  }
-}
-,draw:function (){
-//  if (main.frameCount%4!==0)return;
-  for (let i=0;i<this.obj.length;i++){
-    this.obj[i].main.position.x = (this.obj[i].x+(main.time[0]()*this.v.x))%(this.space.x*this.amount.x)-this.space.x/2;
-    this.obj[i].main.position.y = (this.obj[i].y+(main.time[0]()*this.v.y))%(this.space.y*this.amount.y)-this.space.y/2;
-    this.obj[i].main.alpha =  0.7+0.3*sin(this.obj[i].offset+main.frameCount/180);
-  //  console.log("ok");
-  }
-} })
 
 ];
 
@@ -345,18 +269,18 @@ main.addpixi=function(){
      }
   //       let tmp=new PIXI.Graphics().lineStyle(2,0xFFFFFF).moveTo(0,0).lineTo(0,this.H*2);
      this.line = new PIXI.Graphics().lineStyle(1,0xFF0000).moveTo(0,this.H-this.octave/2*this.size.y).lineTo(0,this.H+this.octave/2*this.size.y);
-     this.circle = new PIXI.Graphics().beginFill(114514,1).drawCircle(this.W*1.5,this.H*0.2,30,30).endFill();
-    var sty = {fontStyle:'bold 20pt Arial',fill:0xFFFF00};
+     this.circle = new PIXI.Graphics().beginFill(0xFF0000,1).drawCircle(this.W*1.7,this.H*0.05,20,20).endFill();
+    var sty = {fontStyle:'bold 40pt Arial',fill:0xFFFF00};
     this.text=new PIXI.Text("BPM:"+Math.round(60/this.bpmoffset[0][0])+" or "+Math.round(60/this.bpmoffset[1][0]), sty);
-    this.text.position.x=this.W*1.3;
-    this.text.position.y=this.H*0.5;
+    this.text.position.x=this.W*1.8;
+    this.text.position.y=this.H*0.05;
      main.stage.addChild(this.line);
      main.stage.addChild(this.circle);
      main.stage.addChild(this.text);
      for (var i=0;i<6;i++){
       let line = new PIXI.Graphics().lineStyle(1,0x000000).moveTo(this.W-this.size.x*this.amount/2,this.H-this.size.y*this.octave/2+12*i*this.size.y).lineTo(this.W+this.size.x*this.amount/2,this.H-this.size.y*this.octave/2+12*i*this.size.y);
      main.stage.addChild(line);
-       
+
      }
     this.bline=[];
     for (let i=0;i<(2*this.duration/this.bpmoffset[0][0])|0;i++){
@@ -367,13 +291,13 @@ main.addpixi=function(){
       this.bline[i].flg=false;
       this.bline[i].main.visible=false;
       main.stage.addChild(this.bline[i].main);
-       
+
      }
 
   },draw:function(){
     if (main.frameCount%2!=0)return;
     if (!this.flg)return ;//未定義だったら戻る
-    
+
    let x=   main.music.main.vecAll();
    x=x.reverse();
   // console.log(x);
@@ -395,7 +319,7 @@ main.addpixi=function(){
          }
          else if (x[i]>0.5){
          this.obj[ttime][i].main.tint= 0xFFFF00;
-         }    
+         }
          else if (tmp===128){
         this.obj[ttime][i].main.tint=0;
 
@@ -425,9 +349,9 @@ main.addpixi=function(){
   });
 
 
-  
-  
- 
+
+
+
   main.draw.push({
     visible:false,
     name:"12音階",
@@ -489,13 +413,13 @@ main.addpixi=function(){
       this.bline[i].flg=false;
       this.bline[i].main.visible=false;
       main.stage.addChild(this.bline[i].main);
-       
+
      }
 
   },draw:function(){
    // if (main.frameCount%10!=0)return;
     if (!this.flg)return ;//未定義だったら戻る
-    
+
    let x=   main.music.main.vec12();
    x=x.reverse();
   // console.log(x);
@@ -517,7 +441,7 @@ main.addpixi=function(){
          }
          else if (x[i]>0.5){
         // this.obj[ttime][i].main.tint= 0xFFFF00;
-         }    
+         }
          else if (tmp===128){
        // this.obj[ttime][i].main.tint=0;
 
@@ -550,8 +474,8 @@ main.addpixi=function(){
       main.draw.splice(i,1);
     }
   }
-  
-  
+
+
 }
 
   //そもそも今回表示したくないものは関数自体に入れないという神仕様 visible :falseのみ有効！

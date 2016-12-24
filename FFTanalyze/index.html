@@ -1,0 +1,36 @@
+﻿<html><title>FFT analyzation</title><head>
+<style type="text/css">
+    * {
+        text-align: center;
+        margin: 10px auto;
+        padding: 0px;
+    }
+    canvas {
+        /*box-shadow: 0px 0px 0px 1px gray;*/
+      border-style: solid;
+    }
+    #canvasview{
+      display: none;
+    }
+</style>
+</head>
+<body>
+  <input type="file" id="files" name="file" multiple/>
+  <button id ="pauseB" type="button" >　NON　</button>
+  <button id ="resetB" type="button" >リセット</button>
+  <button type="button" id="saveimg">画像保存</button>
+    <div id="canvasview"><canvas id="mycanvas"></canvas> </div>
+    <div id="pixiview"><canvas id="myview"></canvas> </div>
+
+<script src ="js/encoding.js"></script>
+<script src ="js/pixi.min.js"></script>
+<script src ="js/stats.min.js"></script>
+<script src ="js/getElapsed.js"></script>
+<script src ="js/mathtool.js"></script>
+<script src ="js/LyricsToText.js"></script>
+<script src ="js/MusicPlayP.js"></script>
+<script src ="js/index.js"></script>
+
+
+
+</body></html>
